@@ -18,10 +18,10 @@
                 <span class="icon-bar"></span>
             </a>
 
-            <?php HTML::macro('navMenuItem', function($url, $title, $subMenus = []){
+            <?php HTML::macro('navMenuItem', function($url, $title, $subMenus = array()){
                 $url = URL::to($url);
                 $html = '<li';
-                $class = [];
+                $class = array();
                 if($url == URL::current())
                     $class[] = 'active';
                 if($subMenus)
