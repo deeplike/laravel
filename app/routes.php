@@ -13,5 +13,22 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	return View::make('layouts.default')->nest('content', 'hello');
+});
+
+//Route::get('account/signup', function()
+//{
+//    return View::make('layouts.default')->nest('content', 'hello');
+//});
+//
+//Route::get('account/signin', function()
+//{
+//    return View::make('layouts.default')->nest('content', 'hello');
+//});
+
+Route::controller('account', 'AccountController');
+
+Event::listen('auth.login', function($user){
+    $user->last_time = new DateTime();
+    $user->save();
 });
