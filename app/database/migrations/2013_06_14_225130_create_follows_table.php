@@ -14,9 +14,9 @@ class CreateFollowsTable extends Migration {
         Schema::create('follows', function($table){
             /* @var $table \Illuminate\Database\Schema\Blueprint */
             $table->increments('id');
-            $table->integer('user_id', false, true);
-            $table->integer('followed_id', false, true);
-            $table->enum('follow', array(0, 1));
+            $table->integer('user_id', false, true)->default(0);
+            $table->integer('followed_id', false, true)->default(0);
+            $table->enum('follow', array(0, 1))->default(0);
             $table->integer('status');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

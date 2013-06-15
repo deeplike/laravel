@@ -15,7 +15,7 @@ class CreateTagsTable extends Migration {
             /* @var $table \Illuminate\Database\Schema\Blueprint */
             $table->increments('id');
             $table->string('name', 16);
-            $table->integer('num_questions', false, true);
+            $table->integer('num_questions', false, true)->default(0);
             $table->timestamps();
         });
 	}

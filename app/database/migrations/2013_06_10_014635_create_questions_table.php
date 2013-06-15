@@ -14,10 +14,10 @@ class CreateQuestionsTable extends Migration {
 		Schema::create('questions', function($table){
             /* @var $table \Illuminate\Database\Schema\Blueprint */
             $table->increments('id');
-            $table->integer('user_id', false, true);
+            $table->integer('user_id', false, true)->default(0);
             $table->string('title', 20);
             $table->string('content', 2048);
-            $table->integer('num_replies', false, true);
+            $table->integer('num_replies', false, true)->default(0);
             $table->integer('status');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

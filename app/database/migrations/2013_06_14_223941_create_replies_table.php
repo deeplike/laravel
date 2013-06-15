@@ -14,12 +14,12 @@ class CreateRepliesTable extends Migration {
         Schema::create('replies', function($table){
             /* @var $table \Illuminate\Database\Schema\Blueprint */
             $table->increments('id');
-            $table->integer('user_id', false, true);
-            $table->integer('question_id', false, true);
+            $table->integer('user_id', false, true)->default(0);
+            $table->integer('question_id', false, true)->default(0);
             $table->string('content', 2048);
-            $table->integer('num_comments', false, true);
-            $table->integer('num_votes', false, true);
-            $table->integer('num_hates', false, true);
+            $table->integer('num_comments', false, true)->default(0);
+            $table->integer('num_votes', false, true)->default(0);
+            $table->integer('num_hates', false, true)->default(0);
             $table->integer('status');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
