@@ -9,7 +9,7 @@ class AccountController extends BaseController {
 
     public function __construct()
     {
-        $this->beforeFilter('auth', array('only'=>array('getProfile', 'getSignout')));
+        $this->beforeFilter('auth', array('only'=>array('getProfile', 'getSignout', 'getAvatar', 'postAvatar')));
         $this->beforeFilter('guest', array('only'=>array('getSignin', 'getSignup', 'postSignin', 'postSignup')));
     }
 
@@ -75,5 +75,33 @@ class AccountController extends BaseController {
     {
         Auth::logout();
         return Redirect::action('AccountController@getSignup');
+    }
+
+    public function getAvatar()
+    {
+        $this->layout->content = View::make('account.avatar');
+    }
+
+    public function postAvatar()
+    {
+        $user = Auth::user();
+        if (Input::hasFile('avatar'))
+        {
+            $rule = array(
+                'avatar'=>'image',
+            );
+            $avatar = Input::file('avatar');
+            $validator = Validator::make(array('avatar'=>$avatar), $rule);
+            if($validator->fails()){
+                return Redirect::to('account/avatar')->withErrors($validator);
+            }else{
+                $uploadDir = $user->getUploadDir();
+                $filename = $user->generateFilename().'.'.$avatar->getClientOriginalExtension();
+                $avatar->move($uploadDir, $filename);
+                return Redirect::to('account/avatar')->with('message', '头像已保存。');
+            }
+        }else{
+            return Redirect::to('account/avatar')->with('message', '没有选择头像。');
+        }
     }
 }

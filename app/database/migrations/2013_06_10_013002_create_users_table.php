@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration {
             $table->string('email', 40);
             $table->string('password', 128);
             $table->string('name', 10);
+            $table->string('avatar', 128)->default('');
             $table->integer('num_questions', false, true)->default(0);
             $table->integer('num_replies', false, true)->default(0);
             $table->integer('num_comments', false, true)->default(0);

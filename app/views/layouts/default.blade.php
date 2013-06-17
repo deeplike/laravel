@@ -7,6 +7,8 @@
     <!-- Bootstrap -->
     <link href="<?php echo URL::asset('css/bootstrap.css'); ?>" rel="stylesheet" media="screen">
     <link href="<?php echo URL::asset('css/default.css'); ?>" rel="stylesheet" media="screen">
+    <script src="<?php echo URL::asset('js/jquery.min.js'); ?>"></script>
+    <script src="<?php echo URL::asset('js/bootstrap.js'); ?>"></script>
 </head>
 <body>
 <div class="navbar navbar-inverse">
@@ -64,7 +66,7 @@
 <div id="header">
     <div class="container">
         <div class="row">
-            <div class="span2"><div class="logo">马仕荣</div></div>
+            <div class="span2"><div class="logo">LOGO</div></div>
             <div class="span10">
             </div>
         </div>
@@ -73,7 +75,7 @@
 
 <div id="content">
     <div class="container">
-        <div class="row">
+        <div class="row-fluid">
             <div class="span9">
                 <?php echo $content; ?>
             </div>
@@ -84,11 +86,6 @@
         </div>
     </div>
 </div>
-<script src="<?php echo URL::asset('js/jquery.min.js'); ?>"></script>
-<script src="<?php echo URL::asset('js/bootstrap.min.js'); ?>"></script>
 
-<script type="text/javascript">
-    $('.dropdown-toggle').dropdown();
-</script>
 </body>
 </html>

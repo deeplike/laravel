@@ -49,4 +49,21 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
+    public function getUploadDir()
+    {
+        $mainUploadDir = 'uploads';
+        $dateDir = date('Ym');
+        $uploadDir = public_path().DIRECTORY_SEPARATOR.$mainUploadDir.DIRECTORY_SEPARATOR.$dateDir;
+        return $uploadDir;
+    }
+
+    public function generateFilename()
+    {
+        $time = microtime(true) * 10000;
+        $rand = rand(100, 999);
+        $date = date('Ymd');
+        $filename = $this->id . '-'.$date.$time.$rand;
+        return $filename;
+    }
+
 }
