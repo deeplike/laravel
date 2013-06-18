@@ -11,7 +11,7 @@
     <script src="<?php echo URL::asset('js/bootstrap.js'); ?>"></script>
 </head>
 <body>
-<div class="navbar navbar-inverse">
+<div class="navbar navbar-static-top navbar-inverse">
     <div class="navbar-inner">
         <div class="container">
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -43,6 +43,8 @@
                 return $html;
             }); ?>
 
+            <a class="brand" href="<?php echo URL::to('/'); ?>">MY APP</a>
+
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <?php echo HTML::navMenuItem('/', '首页'); ?>
@@ -58,16 +60,6 @@
                         )); ?>
                     <?php endif; ?>
                 </ul>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="header">
-    <div class="container">
-        <div class="row">
-            <div class="span2"><div class="logo">LOGO</div></div>
-            <div class="span10">
             </div>
         </div>
     </div>
