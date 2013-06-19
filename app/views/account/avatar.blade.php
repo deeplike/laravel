@@ -13,7 +13,7 @@ $user = Auth::user();
 <?php endif; ?>
 
     <div class="">
-        {{HTML::image($user->avatar ? $user->avatar : URL::asset('images/default_avatar.jpg'), $user->name, array('class'=>'img-rounded'))}}
+        {{HTML::image($user->avatar ? $user->avatar : URL::asset('images/default_avatar.png'), $user->name, array('class'=>'img-rounded avatar-64'))}}
     </div>
 
 <?php echo Form::open(array('files'=>true)); ?>

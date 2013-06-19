@@ -5,7 +5,7 @@
 $user = Auth::user();
 ?>
 @section('title')
-登录
+个人中心
 @stop
 
 <h4>帐号设置</h4>
@@ -19,7 +19,7 @@ $user = Auth::user();
     <div class="row-fluid">
         <div class="span2">
             <a class="avatar-big" href="{{URL::to('account/avatar')}}">
-                {{HTML::image($user->avatar ? $user->avatar : URL::asset('images/default_avatar.jpg'), $user->name, array('class'=>'img-rounded'))}}
+                {{HTML::image($user->avatar ? $user->avatar : URL::asset('images/default_avatar.png'), $user->name, array('class'=>'img-rounded avatar-64'))}}
             </a>
             <a class="btn mt10" href="{{URL::to('account/avatar')}}">修改头像</a>
         </div>

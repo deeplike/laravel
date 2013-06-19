@@ -54,7 +54,7 @@
                         <?php echo HTML::navMenuItem('account/signup', '注册'); ?>
                         <?php echo HTML::navMenuItem('account/signin', '登录'); ?>
                     <?php else: ?>
-                        <li class="avatar"><img src="<?php echo asset(Auth::user()->avatar); ?>" alt=""/></li>
+                        <li class="avatar">{{HTML::image(Auth::user()->avatar ? Auth::user()->avatar : URL::asset('images/default_avatar.png'), Auth::user()->name, array('class'=>'img-rounded'))}}</li>
                         <?php echo HTML::navMenuItem('account/profile', Auth::user()->name, array(
                             '帐号设置'=>'account/profile',
                             '退出'=>'account/signout'
