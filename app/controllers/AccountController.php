@@ -85,23 +85,16 @@ class AccountController extends BaseController {
     public function postAvatar()
     {
         $user = Auth::user();
-        if (Input::hasFile('avatar'))
-        {
-            $rule = array(
-                'avatar'=>'image',
-            );
-            $avatar = Input::file('avatar');
-            $validator = Validator::make(array('avatar'=>$avatar), $rule);
-            if($validator->fails()){
-                return Redirect::to('account/avatar')->withErrors($validator);
-            }else{
-                $uploadDir = $user->getUploadDir();
-                $filename = $user->generateFilename().'.'.$avatar->getClientOriginalExtension();
-                $avatar->move($uploadDir, $filename);
-                return Redirect::to('account/avatar')->with('message', '头像已保存。');
-            }
+        $rule = array(
+            'avatar'=>'required|image',
+        );
+        $avatar = Input::file('avatar');
+        $validator = Validator::make(array('avatar'=>$avatar), $rule);
+        if($validator->fails()){
+            return Redirect::to('account/avatar')->withErrors($validator);
         }else{
-            return Redirect::to('account/avatar')->with('message', '没有选择头像。');
+            $user->saveAvatar($avatar);
+            return Redirect::to('account/avatar');
         }
     }
 }

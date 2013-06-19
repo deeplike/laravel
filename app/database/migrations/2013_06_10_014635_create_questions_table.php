@@ -14,7 +14,7 @@ class CreateQuestionsTable extends Migration {
 		Schema::create('questions', function($table){
             /* @var $table \Illuminate\Database\Schema\Blueprint */
             $table->increments('id');
-            $table->integer('user_id', false, true)->default(0);
+            $table->integer('user_id', false, true);
             $table->string('title', 20);
             $table->string('content', 2048);
             $table->integer('num_replies', false, true)->default(0);

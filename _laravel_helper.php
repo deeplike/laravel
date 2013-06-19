@@ -5630,7 +5630,7 @@ namespace  {
          * @return bool
          * @static
          */
-        public static function makeDirectory($path, $mode = 511, $recursive = false){
+        public static function makeDirectory($path, $mode = 0777, $recursive = false){
             return \Illuminate\Filesystem\Filesystem::makeDirectory($path, $mode, $recursive);
         }
 

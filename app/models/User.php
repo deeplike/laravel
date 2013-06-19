@@ -53,8 +53,18 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     {
         $mainUploadDir = 'uploads';
         $dateDir = date('Ym');
-        $uploadDir = public_path().DIRECTORY_SEPARATOR.$mainUploadDir.DIRECTORY_SEPARATOR.$dateDir;
+        $uploadDir = public_path().DIRECTORY_SEPARATOR.$mainUploadDir.DIRECTORY_SEPARATOR.$dateDir.DIRECTORY_SEPARATOR;
+        if(!File::exists($uploadDir))
+            File::makeDirectory($uploadDir, 0777, true);
         return $uploadDir;
+    }
+
+    public function getUploadURL()
+    {
+        $mainUploadDir = 'uploads';
+        $dateDir = date('Ym');
+        $uploadURL = $mainUploadDir.'/'.$dateDir.'/';
+        return $uploadURL;
     }
 
     public function generateFilename()
@@ -64,6 +74,21 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         $date = date('Ymd');
         $filename = $this->id . '-'.$date.$time.$rand;
         return $filename;
+    }
+
+    public function saveAvatar(Symfony\Component\HttpFoundation\File\UploadedFile $avatar)
+    {
+        $uploadDir = $this->getUploadDir();
+        $filename = $this->generateFilename().'.'.$avatar->getClientOriginalExtension();
+        $result = $avatar->move($uploadDir.'/tmp', $filename);
+        if(!empty($this->avatar))
+            File::delete(public_path().$this->avatar);
+        $image = new Image($result);
+        $image->smart_crop(90);
+        $image->save($uploadDir.$filename);
+        File::delete($result);
+        $this->avatar = $this->getUploadURL().$filename;
+        $this->save();
     }
 
 }
