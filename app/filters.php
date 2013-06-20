@@ -35,7 +35,7 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::guest('account/signin');
+	if (Auth::guest()) return Redirect::guest('account/signin')->with('message', '请先登录您的账户，然后进行操作。');
 });
 
 

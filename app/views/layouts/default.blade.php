@@ -20,22 +20,22 @@
                 <span class="icon-bar"></span>
             </a>
 
-            <?php HTML::macro('navMenuItem', function($url, $title, $subMenus = array()){
+            <?php HTML::macro('navMenuItem', function ($url, $title, $subMenus = array()) {
                 $url = URL::to($url);
                 $html = '<li';
                 $class = array();
-                if($url == URL::current())
+                if ($url == URL::current())
                     $class[] = 'active';
-                if($subMenus)
+                if ($subMenus)
                     $class[] = 'dropdown';
-                if($class)
-                    $html .= ' class="'.implode(' ', $class).'"';
+                if ($class)
+                    $html .= ' class="' . implode(' ', $class) . '"';
                 $html .= '>';
-                $html .= $subMenus ? HTML::link('#', $title, array('class'=>'dropdown-toggle', 'data-toggle'=>'dropdown')) : HTML::link($url, $title);
-                if($subMenus){
+                $html .= $subMenus ? HTML::link('#', $title, array('class' => 'dropdown-toggle', 'data-toggle' => 'dropdown')) : HTML::link($url, $title);
+                if ($subMenus) {
                     $html .= '<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">';
-                    foreach($subMenus as $subTitle => $subUrl){
-                        $html .= '<li><a tabindex="-1" href="'.Url::to($subUrl).'">'.$subTitle.'</a></li>';
+                    foreach ($subMenus as $subTitle => $subUrl) {
+                        $html .= '<li><a tabindex="-1" href="' . Url::to($subUrl) . '">' . $subTitle . '</a></li>';
                     }
                     $html .= '</ul>';
                 }
@@ -45,19 +45,26 @@
 
             <a class="brand" href="<?php echo URL::to('/'); ?>">MY APP</a>
 
+            <form class="navbar-form pull-left mr10">
+                <input type="text" class="span3">
+                <a href="{{URL::to('question/ask')}}" class="btn">提问</a>
+            </form>
+
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <?php echo HTML::navMenuItem('/', '首页'); ?>
                 </ul>
                 <ul class="nav pull-right">
-                    <?php if(!Auth::check()): ?>
+                    <?php if (!Auth::check()): ?>
                         <?php echo HTML::navMenuItem('account/signup', '注册'); ?>
                         <?php echo HTML::navMenuItem('account/signin', '登录'); ?>
                     <?php else: ?>
-                        <li class="avatar">{{HTML::image(Auth::user()->avatar ? Auth::user()->avatar : URL::asset('images/default_avatar.png'), Auth::user()->name, array('class'=>'img-rounded'))}}</li>
+                        <li class="avatar">{{HTML::image(Auth::user()->avatar ? Auth::user()->avatar :
+                            URL::asset('images/default_avatar.png'), Auth::user()->name)}}
+                        </li>
                         <?php echo HTML::navMenuItem('account/profile', Auth::user()->name, array(
-                            '帐号设置'=>'account/profile',
-                            '退出'=>'account/signout'
+                            '帐号设置' => 'account/profile',
+                            '退出' => 'account/signout'
                         )); ?>
                     <?php endif; ?>
                 </ul>
@@ -68,14 +75,9 @@
 
 <div id="content">
     <div class="container">
-        <div class="row-fluid">
-            <div class="span9">
-                <?php echo $content; ?>
-            </div>
-            <div class="span3">
-                <h4>sidebar</h4>
-                @yield('sidebar')
-            </div>
+        <div class="row">
+            @yield('content')
+            @yield('secondary')
         </div>
     </div>
 </div>

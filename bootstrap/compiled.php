@@ -316,7 +316,14 @@ class Application extends Container implements HttpKernelInterface, ResponsePrep
     }
     public function redirectIfTrailingSlash()
     {
-        return;
+        if ($this->runningInConsole()) {
+            return;
+        }
+        $path = $this['request']->getPathInfo();
+        if ($path != '/' and ends_with($path, '/') and !ends_with($path, '//')) {
+            with(new SymfonyRedirect($this['request']->fullUrl(), 301))->send();
+            die;
+        }
     }
     public function bindInstallPaths(array $paths)
     {
@@ -327,7 +334,7 @@ class Application extends Container implements HttpKernelInterface, ResponsePrep
     }
     public static function getBootstrapFile()
     {
-        return 'D:\\xampp\\htdocs\\laravel\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation' . '/start.php';
+        return '/Users/haiyingwu/Sites/laravel/vendor/laravel/framework/src/Illuminate/Foundation' . '/start.php';
     }
     public function startExceptionHandling()
     {
@@ -9939,7 +9946,7 @@ class PrettyPageHandler extends Handler
             return Handler::DONE;
         }
         if (!($resources = $this->getResourcesPath())) {
-            $resources = 'D:\\xampp\\htdocs\\laravel\\vendor\\filp\\whoops\\src\\Whoops\\Handler' . '/../Resources';
+            $resources = '/Users/haiyingwu/Sites/laravel/vendor/filp/whoops/src/Whoops/Handler' . '/../Resources';
         }
         $templateFile = "{$resources}/pretty-template.php";
         $cssFile = "{$resources}/pretty-page.css";

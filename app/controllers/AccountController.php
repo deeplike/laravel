@@ -55,13 +55,13 @@ class AccountController extends BaseController {
         );
         $validator = Validator::make(Input::all(), $rule);
         if($validator->fails())
-            return Redirect::action('AccountController@getSignin')->withInput(Input::only(array('email')))->withErrors($validator);
+            return Redirect::to('account/signin')->withInput(Input::only(array('email')))->withErrors($validator);
         else{
             if(Auth::attempt(array('email'=>Input::get('email'), 'password'=>Input::get('password')))){
-                return Redirect::action('AccountController@getProfile');
+                return Redirect::intended('account/profile');
             }else{
                 $validator->messages()->add('email', '用户名不存在或密码错误。');
-                return Redirect::action('AccountController@getSignin')->withInput(Input::only(array('email')))->withErrors($validator);
+                return Redirect::to('account/signin')->withInput(Input::only(array('email')))->withErrors($validator);
             }
         }
     }
@@ -74,7 +74,7 @@ class AccountController extends BaseController {
     public function getSignout()
     {
         Auth::logout();
-        return Redirect::action('AccountController@getSignup');
+        return Redirect::to('account/signup');
     }
 
     public function getAvatar()

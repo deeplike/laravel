@@ -1,10 +1,17 @@
 <?php
-/*
- * @filename QuestionController.php
- * @author haiyingwu
- * @date 13-6-20
- * @time 下午4:59
- * @copyright
- * @license
- */
 
+class QuestionController extends BaseController
+{
+    protected $layout = 'layouts.default';
+
+    public function __construct()
+    {
+        $this->beforeFilter('auth', array('only'=>array('getAsk')));
+        $this->beforeFilter('guest', array('only'=>array()));
+    }
+
+    public function getAsk()
+    {
+        return View::make('question.ask');
+    }
+}

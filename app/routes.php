@@ -28,6 +28,8 @@ Route::get('/', function()
 
 Route::controller('account', 'AccountController');
 
+Route::controller('question', 'QuestionController');
+
 Event::listen('auth.login', function($user){
     $user->last_time = new DateTime();
     $user->save();
