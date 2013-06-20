@@ -20,7 +20,7 @@ class CreateRepliesTable extends Migration {
             $table->integer('num_comments', false, true)->default(0);
             $table->integer('num_votes', false, true)->default(0);
             $table->integer('num_hates', false, true)->default(0);
-            $table->integer('status');
+            $table->integer('status', false, true)->default(0);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');

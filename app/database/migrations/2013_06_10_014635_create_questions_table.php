@@ -18,7 +18,7 @@ class CreateQuestionsTable extends Migration {
             $table->string('title', 20);
             $table->string('content', 2048);
             $table->integer('num_replies', false, true)->default(0);
-            $table->integer('status');
+            $table->integer('status', false, true)->default(0);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

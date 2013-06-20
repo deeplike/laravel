@@ -26,7 +26,10 @@ class CreateUsersTable extends Migration {
             $table->integer('num_favourites', false, true)->default(0);
             $table->timestamp('last_time');
             $table->integer('last_ip', false, true)->default(0);
+            $table->integer('status', false, true)->default(0);
             $table->timestamps();
+            $table->unique('email');
+            $table->unique('name');
         });
 	}
 

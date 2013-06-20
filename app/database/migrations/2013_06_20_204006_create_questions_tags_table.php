@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFavouritesTable extends Migration {
+class CreateQuestionsTagsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,16 +11,15 @@ class CreateFavouritesTable extends Migration {
 	 */
 	public function up()
 	{
-        Schema::create('favourites', function($table){
+        Schema::create('questions_tags', function($table){
             /* @var $table \Illuminate\Database\Schema\Blueprint */
             $table->increments('id');
-            $table->integer('user_id', false, true);
             $table->integer('question_id', false, true);
-            $table->enum('favourite', array(0, 1))->default(0);
+            $table->integer('tag_id', false, true);
             $table->integer('status', false, true)->default(0);
             $table->timestamps();
-            $table->unique(array('user_id', 'question_id'));
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unique(array('question_id', 'tag_id'));
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
         });
 	}
@@ -32,7 +31,7 @@ class CreateFavouritesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('favourites');
+        Schema::drop('questions_tags');
 	}
 
 }

@@ -17,8 +17,9 @@ class CreateFollowsTable extends Migration {
             $table->integer('user_id', false, true);
             $table->integer('followed_id', false, true);
             $table->enum('follow', array(0, 1))->default(0);
-            $table->integer('status');
+            $table->integer('status', false, true)->default(0);
             $table->timestamps();
+            $table->unique(array('user_id', 'followed_id'));
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('followed_id')->references('id')->on('users')->onDelete('cascade');
         });

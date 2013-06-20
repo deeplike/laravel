@@ -17,8 +17,9 @@ class CreateVotesTables extends Migration {
             $table->integer('user_id', false, true);
             $table->integer('reply_id', false, true);
             $table->enum('vote', array(-1, 0 , 1))->default(0);
-            $table->integer('status');
+            $table->integer('status', false, true)->default(0);
             $table->timestamps();
+            $table->unique(array('user_id', 'reply_id'));
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('reply_id')->references('id')->on('replies')->onDelete('cascade');
         });

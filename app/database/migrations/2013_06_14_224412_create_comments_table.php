@@ -17,7 +17,7 @@ class CreateCommentsTable extends Migration {
             $table->integer('user_id', false, true);
             $table->integer('reply_id', false, true);
             $table->string('content', 128);
-            $table->integer('status');
+            $table->integer('status', false, true)->default(0);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('reply_id')->references('id')->on('replies')->onDelete('cascade');

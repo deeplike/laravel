@@ -16,6 +16,8 @@ class CreateTagsTable extends Migration {
             $table->increments('id');
             $table->string('name', 16);
             $table->integer('num_questions', false, true)->default(0);
+            $table->integer('status', false, true)->default(0);
+            $table->unique('name');
             $table->timestamps();
         });
 	}
