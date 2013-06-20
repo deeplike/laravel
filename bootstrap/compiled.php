@@ -334,7 +334,7 @@ class Application extends Container implements HttpKernelInterface, ResponsePrep
     }
     public static function getBootstrapFile()
     {
-        return '/Users/haiyingwu/Sites/laravel/vendor/laravel/framework/src/Illuminate/Foundation' . '/start.php';
+        return 'D:\\xampp\\htdocs\\laravel\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation' . '/start.php';
     }
     public function startExceptionHandling()
     {
@@ -3396,6 +3396,10 @@ class Str
             return $value;
         }
         return rtrim($matches[0]) . $end;
+    }
+    public static function parseCallback($callback, $default)
+    {
+        return static::contains($callback, '@') ? explode('@', $callback, 2) : array($callback, $default);
     }
     public static function plural($value, $count = 2)
     {
@@ -9946,7 +9950,7 @@ class PrettyPageHandler extends Handler
             return Handler::DONE;
         }
         if (!($resources = $this->getResourcesPath())) {
-            $resources = '/Users/haiyingwu/Sites/laravel/vendor/filp/whoops/src/Whoops/Handler' . '/../Resources';
+            $resources = 'D:\\xampp\\htdocs\\laravel\\vendor\\filp\\whoops\\src\\Whoops\\Handler' . '/../Resources';
         }
         $templateFile = "{$resources}/pretty-template.php";
         $cssFile = "{$resources}/pretty-page.css";

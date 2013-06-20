@@ -23,5 +23,4 @@ class Question extends Eloquent{
         }
 
     }
-
 }

@@ -37,7 +37,8 @@
     </div>
     <div class="control-group">
         <div class="controls">
-            <?php echo Form::submit('登录', array('class' => 'btn')); ?>
+            <?php echo Form::submit('登录', array('class' => 'btn btn-primary')); ?>
+            <a class="btn btn-success" href="{{URL::to('account/signup')}}">注册</a>
         </div>
     </div>
     <?php echo Form::close(); ?>
