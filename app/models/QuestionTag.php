@@ -1,7 +1,8 @@
 <?php
 
 
-class QuestionsTags extends Eloquent {
+class QuestionTag extends Eloquent {
+    protected $table = 'questions_tags';
 
     private static $rules = array(
         'question_id'=>'required|exists:questions,id',

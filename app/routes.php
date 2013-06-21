@@ -19,15 +19,3 @@ Route::get('question/{id}', array('uses' => 'QuestionController@question'))->whe
 
 Route::controller('question', 'QuestionController');
 
-Event::listen('auth.login', function($user){
-    $user->last_time = new DateTime();
-    $user->save();
-});
-
-Event::listen('eloquent.saved: QuestionsTags', function($questionTag){
-    $tag = Tag::find($questionTag->tag_id);
-    if($tag){
-        $tag->num_questions += 1;
-        $tag->save();
-    }
-});

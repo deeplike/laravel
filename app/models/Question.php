@@ -47,12 +47,12 @@ class Question extends Eloquent{
 
     public function addQuestionTag(Question $question,Tag $tag)
     {
-        $validator = QuestionsTags::validate(array(
+        $validator = QuestionTag::validate(array(
             'question_id'=>$this->id,
             'tag_id'=>$tag->id,
         ));
         if($validator->passes()){
-            $questionTag = new QuestionsTags();
+            $questionTag = new QuestionTag();
             $questionTag->question_id = $question->id;
             $questionTag->tag_id = $tag->id;
             $questionTag->save();
