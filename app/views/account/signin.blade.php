@@ -14,25 +14,24 @@
         {{Session::get('message')}}
     </div>
     @endif
-    <?php Form::macro('hasError', function ($key) use ($errors) {
-        $html = '';
-        if ($errors->has($key))
-            $html = '<span class="help-inline">' . $errors->first($key) . '</span>';
-        return $html;
-    }); ?>
+
     <?php echo Form::open(array('class' => 'form-horizontal')); ?>
     <div class="control-group">
         <?php echo Form::label('email', 'E-mail', array('class' => 'control-label')); ?>
         <div class="controls">
             <?php echo Form::text('email', Input::old('email'), array('placeholder' => '电子邮箱')); ?>
-            <?php echo Form::hasError('email'); ?>
+            @if($errors->has('email'))
+            <span class="help-inline">{{$errors->first('email')}}</span>
+            @endif
         </div>
     </div>
     <div class="control-group">
         <?php echo Form::label('password', '密码', array('class' => 'control-label')); ?>
         <div class="controls">
             <?php echo Form::password('password'); ?>
-            <?php echo Form::hasError('password'); ?>
+            @if($errors->has('password'))
+            <span class="help-inline">{{$errors->first('password')}}</span>
+            @endif
         </div>
     </div>
     <div class="control-group">

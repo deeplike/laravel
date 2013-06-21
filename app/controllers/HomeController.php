@@ -15,9 +15,10 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function showWelcome()
+	public function index()
 	{
-		return View::make('hello');
+        $questions = Question::take(10)->get();
+		return View::make('index', array('questions'=>$questions));
 	}
 
 }

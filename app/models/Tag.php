@@ -1,15 +1,16 @@
 <?php
-/*
- * @filename Tag.php
- * @author haiyingwu
- * @date 13-6-21
- * @time 下午4:32
- * @copyright
- * @license
- */
 
 
+class Tag extends Eloquent {
 
-class Tag {
+    private static $rules = array(
+        'name' => 'required|alpha_dash|max:10|unique:tags',
+    );
+
+    public static function validate(array $data)
+    {
+        return validator::make($data, self::$rules);
+    }
 
 }
+

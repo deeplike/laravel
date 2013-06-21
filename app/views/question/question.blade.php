@@ -1,10 +1,26 @@
-<?php
-/*
- * @filename question.php
- * @author haiyingwu
- * @date 13-6-21
- * @time 下午6:11
- * @copyright
- * @license
- */
+@extends('layouts.default')
 
+<?php
+/**
+ * @var $question Question
+ */
+?>
+
+@section('title')
+<?php echo $question->title; ?>
+@stop
+
+@section('content')
+<div class="span8">
+    <h3><?php echo $question->title; ?></h3>
+    <div class="question-content">
+        <?php echo nl2br(HTML::entities($question->content)); ?>
+    </div>
+</div>
+@stop
+
+@section('secondary')
+<div class="span4">
+
+</div>
+@stop

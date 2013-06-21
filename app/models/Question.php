@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Class Question
+ * @property integer $id
+ * @property string $title
+ * @property string $content
+ */
+
 class Question extends Eloquent{
 
     public static $rules = array(
@@ -15,12 +22,40 @@ class Question extends Eloquent{
 
     public function addTags(array $tags)
     {
-        $rule = array(
-            'tag'=>'required|alpha_dash|max:10'
-        );
-        foreach ($tags as $tag) {
+        Event::listen('eloquent.saved: Question', function($question) use ($tags){
+            foreach ($tags as $tagName) {
+                $tag = Tag::where('name', '=', $tagName)->first();
+                if(!$tag){
+                    $tag = $question->addTag($tagName);
+                }
+                $tag && $question->addQuestionTag($question, $tag);
+            }
+        });
+    }
 
+    public function addTag($tagName)
+    {
+        $validator = Tag::validate(array('name'=>$tagName));
+            if($validator->passes()){
+            $tag = new Tag();
+            $tag->name = $tagName;
+            $tag->save();
+            return $tag;
         }
+        return false;
+    }
 
+    public function addQuestionTag(Question $question,Tag $tag)
+    {
+        $validator = QuestionsTags::validate(array(
+            'question_id'=>$this->id,
+            'tag_id'=>$tag->id,
+        ));
+        if($validator->passes()){
+            $questionTag = new QuestionsTags();
+            $questionTag->question_id = $question->id;
+            $questionTag->tag_id = $tag->id;
+            $questionTag->save();
+        }
     }
 }

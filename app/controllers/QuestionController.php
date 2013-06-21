@@ -24,13 +24,19 @@ class QuestionController extends BaseController
             $question = new Question();
             $question->title = Input::get('title');
             $question->content = Input::get('content');
+            $question->user_id = Auth::user()->id;
             $tags = Input::get('tags');
             if(is_string($tags))
                 $tags = array($tags);
             $question->addTags($tags);
             $question->save();
-            var_dump($question);
-            return 1;
+            return Redirect::action('QuestionController@question', array($question->id));
         }
+    }
+
+    public function question($id)
+    {
+        $question = Question::findOrFail($id);
+        return View::make('question.question', array('question'=>$question));
     }
 }

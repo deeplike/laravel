@@ -1,15 +1,17 @@
 <?php
-/*
- * @filename QuestionsTags.php
- * @author haiyingwu
- * @date 13-6-21
- * @time 下午5:13
- * @copyright
- * @license
- */
 
 
+class QuestionsTags extends Eloquent {
 
-class QuestionsTags {
+    private static $rules = array(
+        'question_id'=>'required|exists:questions,id',
+        'tag_id'=>'required|exists:tags,id',
+    );
+
+    public static function validate(array $data)
+    {
+        return Validator::make($data, self::$rules);
+    }
 
 }
+

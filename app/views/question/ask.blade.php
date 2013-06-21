@@ -5,12 +5,6 @@
 @stop
 
 @section('content')
-<?php Form::macro('hasError', function ($key) use ($errors) {
-    $html = '';
-    if ($errors->has($key))
-        $html = '<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button>'.$errors->first($key).'</div>';
-    return $html;
-}); ?>
 <?php echo Form::open(); ?>
 <div class="span8">
     <div class="row-fluid">
@@ -18,12 +12,16 @@
 
         <div class="controls">
             <?php echo Form::text('title', Input::old('title'), array('class' => 'span12', 'placeholder' => '标题')); ?>
-            <?php echo Form::hasError('title'); ?>
+            @if($errors->has('title'))
+            <div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button>{{$errors->first('title')}}</div>
+            @endif
         </div>
 
         <div class="controls">
             <?php echo Form::textarea('content', Input::old('content'), array('class' => 'span12', 'placeholder' => '提问内容', 'rows' => 15)); ?>
-            <?php echo Form::hasError('content'); ?>
+            @if($errors->has('content'))
+            <div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button>{{$errors->first('content')}}</div>
+            @endif
         </div>
     </div>
 </div>
@@ -37,7 +35,9 @@
             <input class="tag-input" type="text"/>
             <button class="btn" type="button">添加</button>
         </div>
-        <?php echo Form::hasError('tags'); ?>
+        @if($errors->has('tags'))
+        <div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button>{{$errors->first('tags')}}</div>
+        @endif
     </div>
     <input type="submit" value="提交" class="btn btn-block"/>
 </div>

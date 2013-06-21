@@ -15,9 +15,9 @@ $user = Auth::user();
 <div class="span12">
     <h4>上传头像</h4>
 
-    <?php if ($errors->has('avatar')): ?>
-        <?php var_dump($errors->first('avatar')); ?>
-    <?php endif; ?>
+    @if($errors->has('avatar'))
+    <div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button>{{$errors->first('avatar')}}</div>
+    @endif
 
     <div class="">
         {{HTML::image($user->avatar ? $user->avatar : URL::asset('images/default_avatar.png'), $user->name,

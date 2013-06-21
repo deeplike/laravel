@@ -8,39 +8,41 @@
 <div class="span12">
     <h4>注册</h4>
 
-    <?php Form::macro('hasError', function ($key) use ($errors) {
-        $html = '';
-        if ($errors->has($key))
-            $html = '<span class="help-inline">' . $errors->first($key) . '</span>';
-        return $html;
-    }); ?>
     <?php echo Form::open(array('class' => 'form-horizontal')); ?>
     <div class="control-group">
         <?php echo Form::label('email', 'E-mail', array('class' => 'control-label')); ?>
         <div class="controls">
             <?php echo Form::text('email', Input::old('email'), array('placeholder' => '电子邮箱')); ?>
-            <?php echo Form::hasError('email'); ?>
+            @if($errors->has('email'))
+            <span class="help-inline">{{$errors->first('email')}}</span>
+            @endif
         </div>
     </div>
     <div class="control-group">
         <?php echo Form::label('password', '密码', array('class' => 'control-label')); ?>
         <div class="controls">
             <?php echo Form::password('password'); ?>
-            <?php echo Form::hasError('password'); ?>
+            @if($errors->has('password'))
+            <span class="help-inline">{{$errors->first('password')}}</span>
+            @endif
         </div>
     </div>
     <div class="control-group">
         <?php echo Form::label('password_confirmation', '确认密码', array('class' => 'control-label')); ?>
         <div class="controls">
             <?php echo Form::password('password_confirmation'); ?>
-            <?php echo Form::hasError('password_confirmation'); ?>
+            @if($errors->has('password_confirmation'))
+            <span class="help-inline">{{$errors->first('password_confirmation')}}</span>
+            @endif
         </div>
     </div>
     <div class="control-group">
         <?php echo Form::label('name', '昵称', array('class' => 'control-label')); ?>
         <div class="controls">
             <?php echo Form::text('name', Input::old('name'), array('placeholder' => '昵称')); ?>
-            <?php echo Form::hasError('name'); ?>
+            @if($errors->has('name'))
+            <span class="help-inline">{{$errors->first('name')}}</span>
+            @endif
         </div>
     </div>
     <div class="control-group">
