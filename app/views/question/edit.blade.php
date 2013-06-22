@@ -1,17 +1,23 @@
 @extends('layouts.default')
 
+<?php
+/**
+ * @var $question Question
+ */
+?>
+
 @section('title')
-提出新问题
+修改问题
 @stop
 
 @section('content')
 <?php echo Form::open(); ?>
 <div class="span8">
     <div class="row-fluid">
-        <h4>提出新问题</h4>
+        <h4>修改问题</h4>
 
         <div class="controls">
-            <?php echo Form::text('title', Input::old('title'), array('class' => 'span12', 'placeholder' => '标题')); ?>
+            <?php echo Form::text('title', $question->title, array('class' => 'span12', 'placeholder' => '标题')); ?>
             @if($errors->has('title'))
             <div class="alert">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -21,7 +27,7 @@
         </div>
 
         <div class="controls">
-            <?php echo Form::textarea('content', Input::old('content'), array('class' => 'span12', 'placeholder' => '提问内容', 'rows' => 15)); ?>
+            <?php echo Form::textarea('content', $question->content, array('class' => 'span12', 'placeholder' => '提问内容', 'rows' => 15)); ?>
             @if($errors->has('content'))
             <div class="alert">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -36,12 +42,9 @@
     <div class="tag-box">
         <h4>问题标签</h4>
         <ul class="new-tag-box inline">
-            <?php $tags = Input::old('tags'); ?>
-            @if(isset($tags))
-            <?php foreach ($tags as $tag): ?>
-                <li class="tag"><a href="#">{{$tag}}</a> <i class=" icon-remove"></i><input type="hidden" name="tags[]" value="{{$tag}}"></li>
+            <?php foreach ($question->questionsTags as $questionTag): ?>
+                <li class="tag"><a href="#"><?php echo $questionTag->tag->name; ?></a> <i class=" icon-remove"></i><input type="hidden" name="tags[]" value="{{$questionTag->tag->name}}"></li>
             <?php endforeach; ?>
-            @endif
         </ul>
         <div class="input-append">
             <input class="tag-input" type="text"/>
@@ -68,3 +71,4 @@
     });
 </script>
 @stop
+

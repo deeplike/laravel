@@ -3,8 +3,15 @@
 /**
  * Class Question
  * @property integer $id
+ * @property integer $user_id
  * @property string $title
  * @property string $content
+ * @property DateTime $created_at
+ * @property string $createdTime
+ * @property integer $createdTimeStamp
+ *
+ * @property User $user
+ * @property QuestionTag[] $questionsTags
  */
 
 class Question extends Eloquent{
@@ -57,5 +64,27 @@ class Question extends Eloquent{
             $questionTag->tag_id = $tag->id;
             $questionTag->save();
         }
+    }
+
+    public function getCreatedTimeAttribute()
+    {
+        return $this->created_at->format('Y-m-d H:m');
+    }
+
+    public function getCreatedTimeStampAttribute()
+    {
+        return $this->created_at->getTimestamp();
+    }
+
+    //Defining Relations
+
+    public function user()
+    {
+        return $this->belongsTo('User');
+    }
+
+    public function questionsTags()
+    {
+        return $this->hasMany('QuestionTag');
     }
 }

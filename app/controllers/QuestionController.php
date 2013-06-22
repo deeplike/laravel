@@ -39,4 +39,10 @@ class QuestionController extends BaseController
         $question = Question::findOrFail($id);
         return View::make('question.question', array('question'=>$question));
     }
+
+    public function getEdit($id)
+    {
+        $question = Question::findOrFail($id);
+        return View::make('question.edit', array('question'=>$question));
+    }
 }

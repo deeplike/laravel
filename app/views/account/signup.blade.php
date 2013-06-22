@@ -28,7 +28,7 @@
         </div>
     </div>
     <div class="control-group">
-        <?php echo Form::label('password_confirmation', '确认密码', array('class' => 'control-label')); ?>
+        <?php echo Form::label('password_confirmation', '重复密码', array('class' => 'control-label')); ?>
         <div class="controls">
             <?php echo Form::password('password_confirmation'); ?>
             @if($errors->has('password_confirmation'))

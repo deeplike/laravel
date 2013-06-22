@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class QuestionTag
+ * @property Tag $tag
+ */
 
 class QuestionTag extends Eloquent {
     protected $table = 'questions_tags';
@@ -12,6 +16,11 @@ class QuestionTag extends Eloquent {
     public static function validate(array $data)
     {
         return Validator::make($data, self::$rules);
+    }
+
+    public function tag()
+    {
+        return $this->belongsTo('Tag');
     }
 
 }

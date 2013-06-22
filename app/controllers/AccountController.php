@@ -22,8 +22,8 @@ class AccountController extends BaseController {
     {
         $rules = array(
             'email' => 'required|between:3,40|email|unique:users',
-            'password' => 'required|alpha_num|between:6,20|confirmed',
-            'password_confirmation' => 'required',
+            'password' => 'required|alpha_num|between:6,20',
+            'password_confirmation' => 'required|same:password',
             'name' => 'required|unique:users',
         );
         $validator = Validator::make(Input::all(), $rules);
