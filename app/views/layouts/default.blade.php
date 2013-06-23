@@ -11,46 +11,36 @@
     <script src="<?php echo URL::asset('js/bootstrap.js'); ?>"></script>
 </head>
 <body>
-<div class="navbar navbar-static-top navbar-inverse">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
-
-            <?php HTML::macro('navMenuItem', function ($url, $title, $subMenus = array()) {
-                $url = URL::to($url);
-                $html = '<li';
-                $class = array();
-                if ($url == URL::current())
-                    $class[] = 'active';
-                if ($subMenus)
-                    $class[] = 'dropdown';
-                if ($class)
-                    $html .= ' class="' . implode(' ', $class) . '"';
-                $html .= '>';
-                $html .= $subMenus ? HTML::link('#', $title, array('class' => 'dropdown-toggle', 'data-toggle' => 'dropdown')) : HTML::link($url, $title);
-                if ($subMenus) {
-                    $html .= '<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">';
-                    foreach ($subMenus as $subTitle => $subUrl) {
-                        $html .= '<li><a tabindex="-1" href="' . Url::to($subUrl) . '">' . $subTitle . '</a></li>';
+<div id="header">
+    <div class="navbar navbar-static-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <?php HTML::macro('navMenuItem', function ($url, $title, $subMenus = array()) {
+                    $url = URL::to($url);
+                    $html = '<li';
+                    $class = array();
+                    if ($url == URL::current())
+                        $class[] = 'active';
+                    if ($subMenus)
+                        $class[] = 'dropdown';
+                    if ($class)
+                        $html .= ' class="' . implode(' ', $class) . '"';
+                    $html .= '>';
+                    $html .= $subMenus ? HTML::link('#', $title, array('class' => 'dropdown-toggle', 'data-toggle' => 'dropdown')) : HTML::link($url, $title);
+                    if ($subMenus) {
+                        $html .= '<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">';
+                        foreach ($subMenus as $subTitle => $subUrl) {
+                            $html .= '<li><a tabindex="-1" href="' . Url::to($subUrl) . '">' . $subTitle . '</a></li>';
+                        }
+                        $html .= '</ul>';
                     }
-                    $html .= '</ul>';
-                }
-                $html .= '</li>';
-                return $html;
-            }); ?>
+                    $html .= '</li>';
+                    return $html;
+                }); ?>
 
-            <a class="brand" href="<?php echo URL::to('/'); ?>">MY APP</a>
+                <a class="brand" href="<?php echo URL::to('/'); ?>">MY APP</a>
 
-            <form class="navbar-form pull-left mr10">
-                <input type="text" class="span3">
-                <a href="{{URL::to('question/ask')}}" class="btn">提问</a>
-            </form>
-
-            <div class="nav-collapse collapse">
+                <a href="{{URL::to('question/ask')}}" class="btn btn-primary">提问</a>
                 <ul class="nav">
                     <?php echo HTML::navMenuItem('/', '首页'); ?>
                 </ul>
@@ -68,11 +58,11 @@
                         )); ?>
                     <?php endif; ?>
                 </ul>
+
             </div>
         </div>
     </div>
 </div>
-
 <div id="content">
     <div class="container">
         <div class="row">
